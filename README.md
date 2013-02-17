@@ -12,25 +12,29 @@ http://inscopeapps.com/demos/flipbook/
 
 Usage: (In CoffeeScript for now)
 --------------------------------------------
-# You are responsible for preloading images!
+You are responsible for preloading images!
 
-# Most simple usage: ---------------
+<code>
+# Most simple usage
 $canvas.click (e) ->
     $(this).flipbook
         images:$images
+</code>
 
-# Add some extra configs: ----------
+<code>
+# Add some extra configs:
 $canvas.click (e) ->
     $(this).flipbook
 	    images:$images
 		filters:[com.tkthompson.Filters.grayscale]
 		innerShadow:true
 		ms:120
+</code>
 
+<code>
 # A more complicated config: ------
 # Set options before running so you can have an image in the canvas before the animation starts
 # Use jQuery deferred object methods 'done' and 'progress' to listen for events
-
 $canvas.flipbook 'setOptions', 
     images:$images
     filters:[com.tkthompson.Filters.grayscale]
@@ -47,5 +51,5 @@ $canvas.click (e) ->
     ).progress((status) -> 
         console.log "status: #{status}"
     )
-
+</code>
 
