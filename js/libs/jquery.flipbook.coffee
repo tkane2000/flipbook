@@ -7,23 +7,9 @@
 author: Trevor Thompson
 flipbook plugin
 
-
-TODO:
-    add comments
-    copyright
-    memory leak?
-    jsperf
-    set bg color to black when you get a portrait image and fix gradient
-    responsive?
-    X: event handling (use deferred object?)
-     - complete
-     - nextImage
-     - ...can be used in a scrubber
-    X: ability to set gradient in options
-    X: make sure width and height are variable
 ### 
 
-do($=jQuery) ->
+(($, window, document) ->
     'use strict'
     pluginName = 'flipbook'
     defaults = 
@@ -33,7 +19,7 @@ do($=jQuery) ->
         images:[]
         filters:[]
         innerShadow:false
-    
+        
     Plugin = (element, options) ->
         @element = element
         @$element = $(element)
@@ -51,7 +37,7 @@ do($=jQuery) ->
         
     Plugin.prototype.setOptions = (options) ->
         @options = options or {}
-        @options = $.extend {}, defaults, options
+        @options = $.extend {}, @defaults, options
 
     Plugin.prototype.setOption = (key, value) ->
         @options = @options or {}
@@ -142,15 +128,20 @@ do($=jQuery) ->
             
             plugin.dfd = dfd if plugin
             
+            # if options is a string, that means it's a plugin, so call it as such
             if typeof options is 'string' and plugin[options]
-                plugin[options].apply plugin, args
+                plugin[options].apply plugin, args 
+
+            # if options is an object, then we set the options and run the plugin
             else if ( typeof options is 'object' )
                 plugin.reset()
                 plugin.setOptions options
                 plugin.flip()
+
+            # if options is an null/undefined, then just run the plugin and use whatever options are already set
             else if (typeof options is 'undefined' or options is null)
                 plugin.reset()
                 plugin.flip()
             else
                 $.error('Method ' +  options + ' does not exist on jQuery.flipbook.  \nmethods: ' + plugin )
-        
+)(jQuery, window, document)

@@ -71,7 +71,7 @@
         images: $images,
         filters: [com.tkthompson.Filters.grayscale],
         innerShadow: true,
-        ms: 200
+        ms: 100
       });
       $canvas.flipbook('drawImg', $images[0]);
       $('.start').click(function(e) {
@@ -165,25 +165,10 @@
   
   author: Trevor Thompson
   flipbook plugin
-  
-  
-  TODO:
-      add comments
-      copyright
-      memory leak?
-      jsperf
-      set bg color to black when you get a portrait image and fix gradient
-      responsive?
-      X: event handling (use deferred object?)
-       - complete
-       - nextImage
-       - ...can be used in a scrubber
-      X: ability to set gradient in options
-      X: make sure width and height are variable
   */
 
 
-  (function($) {
+  (function($, window, document) {
     'use strict';
 
     var Plugin, defaults, pluginName;
@@ -214,7 +199,7 @@
     };
     Plugin.prototype.setOptions = function(options) {
       this.options = options || {};
-      return this.options = $.extend({}, defaults, options);
+      return this.options = $.extend({}, this.defaults, options);
     };
     Plugin.prototype.setOption = function(key, value) {
       this.options = this.options || {};
@@ -340,6 +325,6 @@
         }
       });
     };
-  })(jQuery);
+  })(jQuery, window, document);
 
 }).call(this);

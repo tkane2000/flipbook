@@ -53,7 +53,7 @@ $(document).ready ->
             filters:[com.tkthompson.Filters.grayscale]
             innerShadow:true
             # loop:true
-            ms:200
+            ms:100
 
         $canvas.flipbook 'drawImg', $images[0]
         
