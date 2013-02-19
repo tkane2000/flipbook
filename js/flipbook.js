@@ -72,7 +72,7 @@
         images: $images,
         filters: [com.tkthompson.Filters.grayscale],
         innerShadow: true,
-        ms: 100
+        ms: 160
       });
       $canvas.flipbook('drawImg', $images[0]);
       $('.start').click(function(e) {
@@ -237,15 +237,14 @@
       return this.drawImg(this.options.images[i]);
     };
     Plugin.prototype.flip = function() {
-      var imgs, len, options,
+      var img, imgs, len, options,
         _this = this;
       options = this.options;
       imgs = options.images;
       len = imgs.length;
       if (len > this.i) {
+        img = this.drawImg(imgs[this.i]);
         this.timeoutId = setTimeout(function() {
-          var img;
-          img = _this.drawImg(imgs[_this.i]);
           _this.i = _this.i + 1;
           if (_this.i < len) {
             if (_this.dfd.state() === "pending") {

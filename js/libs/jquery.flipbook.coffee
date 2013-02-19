@@ -88,8 +88,8 @@ flipbook plugin
         imgs = options.images
         len = imgs.length
         if len > @i
+            img = @drawImg(imgs[@i])
             @timeoutId = setTimeout =>
-                img = @drawImg(imgs[@i])
                 @i = @i+1
                 if @i < len
                     if @dfd.state() is "pending"
