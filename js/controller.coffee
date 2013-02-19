@@ -1,8 +1,8 @@
 ### controller ###
 
 # set namespace
-if not com? then com = {}
-if not com.tkthompson? then com.tkthompson = {} 
+if not com then com = {}
+if not com.tkthompson then com.tkthompson = {} 
 window.com = com
     
 com.tkthompson.preloadImgs = (urls, callback) ->
@@ -14,7 +14,6 @@ com.tkthompson.preloadImgs = (urls, callback) ->
     setSrc = (i, img) ->
         url = urls[i-1]
         img.src = url
-        # console.log "setSrc: url: #{url}"
     
     concatImgTags imgUrl for imgUrl in urls
     imgs = $("#{imgTags}") 
@@ -48,6 +47,8 @@ $(document).ready ->
     $canvasEl = $canvas[0]
     onImagesLoaded = ($images, $proper, $broken) ->
         
+        $images.width(800).height(533)
+        
         $canvas.flipbook 'setOptions', 
             images:$images
             filters:[com.tkthompson.Filters.grayscale]
@@ -63,10 +64,10 @@ $(document).ready ->
 
         $canvas.click (e) ->
             $canvas.flipbook().done((status, el) -> 
-                console.log "status: #{status}"
-                console.log "element: #{el}"
+                # console.log "status: #{status}"
+                # console.log "element: #{el}"
             ).progress((status) -> 
-                console.log "status: #{status}"
+                # console.log "status: #{status}"
             )
                 
 
@@ -88,17 +89,3 @@ $(document).ready ->
     urls = model.getImageUrls('surf', 30)
     imgs = com.tkthompson.preloadImgs(urls, onImagesLoaded)
     
-    
-###
-obj = 
-    hello: (name) ->
-        console.log "Hello " + name
-
-defer = new $.Deferred()
-defer.promise obj 
-defer.resolve "John" 
- 
-obj.done ( name ) ->
-    obj.hello name
-.hello "Karl"   
-###

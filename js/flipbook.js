@@ -7,11 +7,11 @@
 (function() {
   var com;
 
-  if (!(typeof com !== "undefined" && com !== null)) {
+  if (!com) {
     com = {};
   }
 
-  if (!(com.tkthompson != null)) {
+  if (!com.tkthompson) {
     com.tkthompson = {};
   }
 
@@ -67,6 +67,7 @@
     $canvas = $("canvas");
     $canvasEl = $canvas[0];
     onImagesLoaded = function($images, $proper, $broken) {
+      $images.width(800).height(533);
       $canvas.flipbook('setOptions', {
         images: $images,
         filters: [com.tkthompson.Filters.grayscale],
@@ -79,12 +80,7 @@
         return $canvas.flipbook();
       });
       $canvas.click(function(e) {
-        return $canvas.flipbook().done(function(status, el) {
-          console.log("status: " + status);
-          return console.log("element: " + el);
-        }).progress(function(status) {
-          return console.log("status: " + status);
-        });
+        return $canvas.flipbook().done(function(status, el) {}).progress(function(status) {});
       });
       $('.filterToggle').data('filterToggleBool', true).click(function(e) {
         var bool, fltrs;
@@ -107,21 +103,6 @@
     urls = model.getImageUrls('surf', 30);
     return imgs = com.tkthompson.preloadImgs(urls, onImagesLoaded);
   });
-
-  /*
-  obj = 
-      hello: (name) ->
-          console.log "Hello " + name
-  
-  defer = new $.Deferred()
-  defer.promise obj 
-  defer.resolve "John" 
-   
-  obj.done ( name ) ->
-      obj.hello name
-  .hello "Karl"
-  */
-
 
   /* --------------------------------------------
        Begin model.coffee
@@ -211,7 +192,6 @@
       return (this.$element.width() - $(img).width()) / 2;
     };
     Plugin.prototype.setRadialGradient = function() {
-      console.log('setRadialGradient');
       this.grd = this.ctx.createRadialGradient(400, 260, 250, 420, 200, 480);
       this.grd.addColorStop(0, "transparent");
       return this.grd.addColorStop(1, "black");
@@ -234,7 +214,7 @@
       return this.ctx.putImageData(idata, 0, 0);
     };
     Plugin.prototype.getPixels = function() {
-      return this.ctx.getImageData(0, 0, this.element.width, this.element.height);
+      return this.ctx.getImageData(0, 0, this.$element.width(), this.$element.height());
     };
     Plugin.prototype.addInnerShadow = function() {
       this.ctx.fillStyle = this.grd;
@@ -242,7 +222,7 @@
     };
     Plugin.prototype.drawImg = function(img) {
       var filter, x, _i, _len, _ref;
-      x = img.width < this.$element.width() ? this.getCenterX(img) : 0;
+      x = $(img).width() < this.$element.width() ? this.getCenterX(img) : 0;
       this.ctx.drawImage(img, x, 0);
       _ref = this.options.filters;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -254,9 +234,7 @@
       }
     };
     Plugin.prototype.drawImgByIndex = function(i) {
-      var img;
-      img = this.options.images[i];
-      return this.drawImg(img);
+      return this.drawImg(this.options.images[i]);
     };
     Plugin.prototype.flip = function() {
       var imgs, len, options,
@@ -283,8 +261,6 @@
           }
           return img;
         }, options.ms);
-      } else {
-        console.log("ERROR: index is over length of images");
       }
       return imgs;
     };
@@ -304,8 +280,6 @@
           if (typeof options !== 'string' || !(options.images != null)) {
             plugin = new Plugin(this, options);
             $.data(this, 'plugin_' + pluginName, plugin);
-          } else {
-            console.log('You need to set the image list before doing anything else!');
           }
         }
         if (plugin) {

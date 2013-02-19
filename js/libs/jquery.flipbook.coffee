@@ -47,7 +47,6 @@ flipbook plugin
         (@$element.width() - $(img).width()) / 2
     
     Plugin.prototype.setRadialGradient = ->
-        console.log 'setRadialGradient'
         @grd=@ctx.createRadialGradient(400,260,250,420,200,480)
         @grd.addColorStop(0,"transparent")
         @grd.addColorStop(1,"black")
@@ -63,34 +62,32 @@ flipbook plugin
         
     Plugin.prototype.runFilter = (filter) ->
         idata = @applyFilter filter
-        c = @$element # TODO: use $(@element)? 
+        c = @$element 
         c.width(idata.width)
         c.height(idata.height)
         @ctx.putImageData(idata, 0, 0)
     
     Plugin.prototype.getPixels = ->
-        @ctx.getImageData 0, 0, @element.width, @element.height
+        @ctx.getImageData 0, 0, @$element.width(), @$element.height()
 
     Plugin.prototype.addInnerShadow = ->
         @ctx.fillStyle=@grd
         @ctx.fillRect(0,0,@w,@h)
         
     Plugin.prototype.drawImg = (img) ->
-        x = if img.width < @$element.width() then @getCenterX(img) else 0
+        x = if $(img).width() < @$element.width() then @getCenterX(img) else 0
         @ctx.drawImage img, x, 0
         @runFilter filter for filter in @options.filters
         @addInnerShadow() if @options.innerShadow
 
     Plugin.prototype.drawImgByIndex = (i) ->
-        img = @options.images[i]
-        @drawImg(img)
+        @drawImg @options.images[i]
         
     Plugin.prototype.flip = ->
         options = @options
         imgs = options.images
         len = imgs.length
         if len > @i
-            # @timeoutId = window.requestAnimFrame =>
             @timeoutId = setTimeout =>
                 img = @drawImg(imgs[@i])
                 @i = @i+1
@@ -104,8 +101,8 @@ flipbook plugin
                     @flip options if options.loop
                 img
             , options.ms
-        else
-            console.log "ERROR: index is over length of images" 
+        # else
+            # console.log "ERROR: index is over length of images" 
         imgs
 
     Plugin.prototype.reset = ->
@@ -123,8 +120,8 @@ flipbook plugin
                 if typeof options isnt 'string' or not options.images?
                     plugin = new Plugin(@, options)
                     $.data this, 'plugin_' + pluginName, plugin
-                else
-                    console.log 'You need to set the image list before doing anything else!'
+                # else
+                    # console.log 'You need to set the image list before doing anything else!'
             
             plugin.dfd = dfd if plugin
             
