@@ -88,7 +88,7 @@ flipbook plugin
         imgs = options.images
         len = imgs.length
         if len > @i
-            img = @drawImg(imgs[@i])
+            @drawImg(imgs[@i])
             @timeoutId = setTimeout =>
                 @i = @i+1
                 if @i < len
@@ -99,11 +99,10 @@ flipbook plugin
                     @i = 0
                     @dfd.resolve "finished!", @element
                     @flip options if options.loop
-                img
             , options.ms
         # else
             # console.log "ERROR: index is over length of images" 
-        imgs
+        null
 
     Plugin.prototype.reset = ->
         clearTimeout @timeoutId

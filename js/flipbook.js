@@ -237,31 +237,30 @@
       return this.drawImg(this.options.images[i]);
     };
     Plugin.prototype.flip = function() {
-      var img, imgs, len, options,
+      var imgs, len, options,
         _this = this;
       options = this.options;
       imgs = options.images;
       len = imgs.length;
       if (len > this.i) {
-        img = this.drawImg(imgs[this.i]);
+        this.drawImg(imgs[this.i]);
         this.timeoutId = setTimeout(function() {
           _this.i = _this.i + 1;
           if (_this.i < len) {
             if (_this.dfd.state() === "pending") {
               _this.dfd.notify(_this.i);
             }
-            _this.flip(options);
+            return _this.flip(options);
           } else {
             _this.i = 0;
             _this.dfd.resolve("finished!", _this.element);
             if (options.loop) {
-              _this.flip(options);
+              return _this.flip(options);
             }
           }
-          return img;
         }, options.ms);
       }
-      return imgs;
+      return null;
     };
     Plugin.prototype.reset = function() {
       clearTimeout(this.timeoutId);
