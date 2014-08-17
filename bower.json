@@ -4,7 +4,7 @@
   "main": ["js/dist/main.js"],
   "authors": [
     "Trevor Thompson"
-  ]
+  ],
   "ignore": [
     "images",
     "index.html",
