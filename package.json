@@ -1,0 +1,28 @@
+{
+  "name": "flipbook-plugin",
+  "version": "0.0.0",
+  "description": "Flips through a sequence of images to create an animation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkane2000/flipbook.git"
+  },
+  "keywords": [
+    "jQuery",
+    "plugin",
+    "photos",
+    "pics",
+    "flipbook",
+    "animation",
+    "canvas"
+  ],
+  "author": "Trevor Thompson",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/tkane2000/flipbook/issues"
+  },
+  "homepage": "https://github.com/tkane2000/flipbook"
+}
