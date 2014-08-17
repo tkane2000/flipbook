@@ -1,10 +1,11 @@
 {
   "name": "flipbook",
-  "version": "0.0.5",
-  "main": ["js/dist/jquery.flipbook.js"],
+  "version": "0.0.0",
   "authors": [
     "Trevor Thompson"
   ],
+  "license": "MIT",
+  "main": ["js/dist/jquery.flipbook.js"],
   "ignore": [
     "images",
     "index.html",
@@ -14,7 +15,7 @@
     "js/request-anim-frame-shim.coffee"
   ],
   "dependencies": {
-    "jquery": "~1.8.3",
+    "jquery": ">=1.8.3",
     "imagesloaded": "~2.1.1"
   }
 }

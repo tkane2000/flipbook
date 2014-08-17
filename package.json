@@ -1,6 +1,6 @@
 {
   "name": "flipbook-plugin",
-  "version": "0.0.5",
+  "version": "0.0.0",
   "description": "Flips through a sequence of images to create an animation.",
   "main": "index.js",
   "scripts": {
